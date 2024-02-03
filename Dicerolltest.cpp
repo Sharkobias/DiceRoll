@@ -73,21 +73,27 @@ public:
     int _wisdom;
     int _charisma;
 };
+
+void print_character(character new_character) 
+{
+    cout << "my gender is " << new_character.GetGender() << endl;
+    cout << "I am a" << " " << new_character.GetRace() << endl;
+    cout << "my name is" << " " <<new_character._name << endl;
+    cout << "my strength is" << " " << new_character._strength << endl;
+    cout << "my dexternity is" << " " << new_character._dexterity << endl;
+    cout << "my constitution is" << " " << new_character._constitution << endl;
+    cout << "my intelligence is" << " " << new_character._intelligence << endl;
+    cout << "my wisdom is" << " " << new_character._wisdom << endl;
+    cout << "my charisma is" << " " << new_character._charisma << endl;
+}
+
 int main()
 {
-    character new_character_GENDER(man, human, "Johnny Silverhand", 13, 10, 16, 20, 18, 20);
-    character Johny(man, human,"Johnny Silverhand",13,10,16,20,18,20);
-    character new_character_NAME(man, human, "Johnny Silverhand", 13, 10, 16, 20, 18, 20);
+    character Silverhand(man, human, "Johnny Silverhand", 13, 10, 16, 20, 18, 20);
+    print_character(Silverhand);
+    character Katrine(woman, elf, "Katrine", 10, 20, 14, 16, 13, 10);
+    print_character(Katrine);
 
-    cout << "my gender is " << Johny.GetGender() << endl;
-    cout << "I am a" <<" " << Johny.GetRace() << endl;
-    cout << "my name is" << " "<<Johny._name << endl;
-    cout << "my strength is" << " " << Johny._strength << endl;
-    cout << "my dexternity is" << " " << Johny._dexterity << endl;
-    cout << "my constitution is" << " " << Johny._constitution << endl;
-    cout << "my intelligence is" << " " << Johny._intelligence << endl;
-    cout << "my wisdom is" << " " << Johny._wisdom << endl;
-    cout << "my charisma is" << " " << Johny._charisma << endl;
 
     do
     {
