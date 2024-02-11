@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <map>
+#include <random>
 using namespace std;
 
-int _random;
 int rolls;
 string user_choice;
 
@@ -61,12 +61,15 @@ public:
     }
     string _name;
     attributes _attr;
-    int GetRandom() 
-    {
-        srand((unsigned)time(NULL));
-        _random = 1 + (rand() % 20);
-    }
 };
+
+int GetRandom()
+{
+    random_device rd; 
+    mt19937 gen(rd());
+    uniform_int_distribution<> distrib(1, 20);
+    return distrib(gen);
+}
 
 void print_character(character new_character) 
 {
@@ -92,6 +95,7 @@ int main()
     int Race_input;
     string Name_input;
     attributes attr;
+    string answer;
     cout << "What is the gender of your character" << endl;
     cout << "[0]woman" << " " << "[1]man" << " " << "[2]intersex" << " " << "[3]other" << endl;
     cin >> Gender_input;
@@ -100,19 +104,35 @@ int main()
     cin >> Race_input;
     cout << "Name your character" << endl;
     cin >> Name_input;
-    cout << "my strength is" <<endl;
-    cin >> attr.strength;
-    cout << "my dexternity is" <<endl;
-    cin >> attr.dexterity;
-    cout << "my constitution is" <<endl;
-    cin >> attr.constitution;
-    cout << "my intelligence is"<<endl;
-    cin >> attr.intelligence;
-    cout << "my wisdom is"  <<endl;
-    cin >> attr.wisdom;
-    cout << "my charisma is" <<endl;
-    cin >> attr.charisma;
+    cout << "Do you wish to input attributes manually or generate them?" << endl;
+    cout << "[m]anually" << " " << "[g]enerate" << endl;
+    cin >> answer;
+    if (answer == "m")
+    {
+        cout << "my strength is" << endl;
+        cin >> attr.strength;
+        cout << "my dexternity is" << endl;
+        cin >> attr.dexterity;
+        cout << "my constitution is" << endl;
+        cin >> attr.constitution;
+        cout << "my intelligence is" << endl;
+        cin >> attr.intelligence;
+        cout << "my wisdom is" << endl;
+        cin >> attr.wisdom;
+        cout << "my charisma is" << endl;
+        cin >> attr.charisma;
+    }
+    if (answer == "g") 
+    {
+        attr.strength = GetRandom();
+        attr.dexterity = GetRandom();
+        attr.constitution = GetRandom();
+        attr.intelligence = GetRandom();
+        attr.wisdom = GetRandom();
+        attr.charisma = GetRandom();
+    }
 
+    
     character player(static_cast<GENDER>(Gender_input), static_cast<RACE>(Race_input), Name_input, attr);
     print_character(player);
 }
