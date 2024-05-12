@@ -9,6 +9,7 @@ string user_choice;
 
 enum GENDER {woman, man, intersex};
 enum RACE { dragonborn,dwarf,elf,gnome,half_elf,halfling, half_orc, human, tiefling};
+enum CLASS {wizard,warlock,bard};
 struct attributes 
 {
     int strength;
@@ -21,12 +22,13 @@ struct attributes
 class character 
 {
 public:
-    character(GENDER gender, RACE race, string name, attributes attr)
+    character(GENDER gender, RACE race, string name, attributes attr, CLASS chclass)
     {
         _gender = gender;
         _race = race;
         _name = name;
         _attr = attr;
+        _class = chclass;
     }
     GENDER _gender;
     string GetGender() 
@@ -74,6 +76,19 @@ public:
     }
     string _name;
     attributes _attr;
+    CLASS _class;
+    string GetClass() 
+    {
+        switch (_class) 
+        {
+        case wizard:
+            return "wizard";
+        case warlock:
+            return "warlock";
+        case bard:
+            return "bard";
+        }
+    }
 };
 
 int GetRandom()
@@ -88,6 +103,7 @@ void print_character(character new_character)
 {
     cout << "my gender is " << new_character.GetGender() << endl;
     cout << "I am a" << " " << new_character.GetRace() << endl;
+    cout << "I'm also a" << " " << new_character.GetClass() << endl;
     cout << "my name is" << " " <<new_character._name << endl;
     cout << "my strength is" << " " << new_character._attr.strength << endl;
     cout << "my dexternity is" << " " << new_character._attr.dexterity << endl;
@@ -106,6 +122,7 @@ int main()
     print_character(Katrine);*/
     int Gender_input;
     int Race_input;
+    int Class_input;
     string Name_input;
     attributes attr;
     string answer;
@@ -117,6 +134,9 @@ int main()
     cout << "[3]gnome" << " " << "[4]half-elf" << " " << "[5]halfling" << endl;
     cout << "[6]half-orc" << " " << "[7]human" << " " << "[8]tiefling" << endl;
     cin >> Race_input;
+    cout << "What class is your character" << endl;
+    cout << "[0]wizard" << " " << "[1]warlock" << " " << "[2]bard" << endl;
+    cin >> Class_input;
     cout << "Name your character" << endl;
     cin >> Name_input;
     cout << "Do you wish to input attributes manually or generate them?" << endl;
@@ -148,6 +168,6 @@ int main()
     }
 
     
-    character player(static_cast<GENDER>(Gender_input), static_cast<RACE>(Race_input), Name_input, attr);
+    character player(static_cast<GENDER>(Gender_input), static_cast<RACE>(Race_input), Name_input, attr, static_cast<CLASS>(Class_input));
     print_character(player);
 }
