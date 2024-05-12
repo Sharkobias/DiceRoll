@@ -8,7 +8,7 @@ int rolls;
 string user_choice;
 
 enum GENDER {woman, man, intersex};
-enum RACE { human,elf,nymph};
+enum RACE { dragonborn,dwarf,elf,gnome,half_elf,halfling, half_orc, human, tiefling};
 struct attributes 
 {
     int strength;
@@ -51,13 +51,26 @@ public:
     {
         switch (_race) 
         {
-        case human:
-            return "human";
+        case dragonborn:
+            return "dragonborn";
+        case dwarf:
+            return "dwarf";
         case elf:
             return "elf";
-        case nymph:
-            return "nymph";
+        case gnome:
+            return "gnome";
+        case half_elf:
+            return "half-elf";
+        case halfling:
+            return "halfling";
+        case half_orc:
+            return "half-orc";
+        case human:
+            return "human";
+        case tiefling:
+            return "tiefling";
         }
+        
     }
     string _name;
     attributes _attr;
@@ -100,7 +113,9 @@ int main()
     cout << "[0]woman" << " " << "[1]man" << " " << "[2]intersex" << " " << "[3]other" << endl;
     cin >> Gender_input;
     cout << "what race is your character" << endl;
-    cout << "[0]human" << " " << "[1]elf" << " " << "[2]nymph" << endl;
+    cout << "[0]dragonborn" << " " << "[1]dwarf" << " " << "[2]elf" << endl;
+    cout << "[3]gnome" << " " << "[4]half-elf" << " " << "[5]halfling" << endl;
+    cout << "[6]half-orc" << " " << "[7]human" << " " << "[8]tiefling" << endl;
     cin >> Race_input;
     cout << "Name your character" << endl;
     cin >> Name_input;
