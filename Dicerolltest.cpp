@@ -3,8 +3,6 @@
 #include <map>
 #include <random>
 using namespace std;
-
-int rolls;
 string user_choice;
 
 enum GENDER {woman, man, intersex};
@@ -171,3 +169,44 @@ int main()
     character player(static_cast<GENDER>(Gender_input), static_cast<RACE>(Race_input), Name_input, attr, static_cast<CLASS>(Class_input));
     print_character(player);
 }
+
+//equipment
+class equipment
+{
+public:
+    attributes attr;
+    int carry_copacity = attr.strength * 15;
+    enum PIECE { copper_pieces, silver_pieces, electrum_pieces, gold_pieces, platonium_pieces };
+
+    struct weapon
+    {
+        string weapon_name;
+        int cost;
+        PIECE money_type;
+        int rolls;
+        int die;
+        double weight;
+        string weapon_type;
+        string attack_type;
+    };
+    struct Club :public weapon {
+        string weapon_name = "Club";
+        int cost = 1;
+        PIECE money_type = silver_pieces;
+        int rolls = 1;
+        int die = 4;
+        double weight = 2;
+        string weapon_type = "Simple Melee";
+        string attack_type = "bludgeoned";
+    };
+    struct Dagger : public weapon {
+        string weapon_name = "Dagger";
+        int cost = 2;
+        PIECE money_type = gold_pieces;
+        int rolls = 1;
+        int die = 4;
+        double weight = 1;
+        string weapon_type = "Simple Melee";
+        string attack_type = "pierced";
+    };
+};
