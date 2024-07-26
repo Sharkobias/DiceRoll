@@ -8,6 +8,7 @@ string user_choice;
 enum GENDER {woman, man, intersex};
 enum RACE { dragonborn,dwarf,elf,gnome,half_elf,halfling, half_orc, human, tiefling};
 enum CLASS {wizard,warlock,bard};
+enum PIECE { copper_pieces, silver_pieces, electrum_pieces, gold_pieces, platonium_pieces };
 struct attributes 
 {
     int strength;
@@ -87,6 +88,53 @@ public:
             return "bard";
         }
     }
+    int RaceAttributes() 
+    {
+        switch (_race)
+        {
+        case dragonborn:
+            _attr.strength = 2;
+            _attr.charisma = 1;
+        case dwarf:
+            _attr.constitution = 2;
+        case elf:
+            _attr.dexterity = 2;
+        case gnome:
+            _attr.intelligence = 2;
+        case half_elf:
+            _attr.charisma = 2;
+        case halfling:
+            _attr.dexterity = 2;
+        case half_orc:
+            _attr.strength = 2;
+            _attr.constitution = 1;
+        case human:
+            _attr.strength = 1;
+            _attr.dexterity = 1;
+            _attr.constitution = 1;
+            _attr.intelligence = 1;
+            _attr.wisdom = 1;
+            _attr.charisma = 1;
+        case tiefling:
+            _attr.charisma = 2;
+            _attr.intelligence = 1;
+        }
+    }
+    int ClassAttributes() 
+    {
+        switch (_class) 
+        {
+        case wizard:
+            _attr.intelligence = _attr.intelligence + 2;
+            _attr.wisdom = _attr.wisdom + 1;
+        case warlock:
+            _attr.charisma = _attr.charisma + 2;
+            _attr.wisdom = _attr.wisdom + 1;
+        case bard:
+            _attr.charisma = _attr.charisma + 2;
+            _attr.dexterity = _attr.dexterity + 1;
+        }
+    }
 };
 
 int GetRandom()
@@ -112,7 +160,7 @@ void print_character(character new_character)
     
 }
 
-int main()
+int main(character get_assets)
 {
     /*character Silverhand(man, human, "Johnny Silverhand");
     print_character(Silverhand);
@@ -132,9 +180,11 @@ int main()
     cout << "[3]gnome" << " " << "[4]half-elf" << " " << "[5]halfling" << endl;
     cout << "[6]half-orc" << " " << "[7]human" << " " << "[8]tiefling" << endl;
     cin >> Race_input;
+    get_assets.RaceAttributes();
     cout << "What class is your character" << endl;
     cout << "[0]wizard" << " " << "[1]warlock" << " " << "[2]bard" << endl;
     cin >> Class_input;
+    get_assets.ClassAttributes();
     cout << "Name your character" << endl;
     cin >> Name_input;
     cout << "Do you wish to input attributes manually or generate them?" << endl;
@@ -176,7 +226,6 @@ class equipment
 public:
     attributes attr;
     int carry_copacity = attr.strength * 15;
-    enum PIECE { copper_pieces, silver_pieces, electrum_pieces, gold_pieces, platonium_pieces };
 
     struct weapon
     {
