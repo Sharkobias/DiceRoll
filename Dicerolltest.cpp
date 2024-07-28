@@ -28,8 +28,8 @@ public:
         _name = name;
         _attr = attr;
         _class = chclass;
+        add_race_bonus();
     }
-    GENDER _gender;
     string GetGender() 
     {
         switch (_gender)
@@ -47,7 +47,6 @@ public:
         }
     }
 
-    RACE _race;
     string GetRace() 
     {
         switch (_race) 
@@ -73,9 +72,7 @@ public:
         }
         
     }
-    string _name;
-    attributes _attr;
-    CLASS _class;
+
     string GetClass() 
     {
         switch (_class) 
@@ -88,60 +85,62 @@ public:
             return "bard";
         }
     }
-    int RaceAttributes() 
-    {
-        switch (_race)
-        {
+
+    void add_race_bonus() {
+        switch (_race) {
         case dragonborn:
-            _attr.strength = 2;
-            _attr.charisma = 1;
+            _attr.strength += 2;
+            _attr.charisma += 1;
+            break;
         case dwarf:
-            _attr.constitution = 2;
+            _attr.constitution += 2;
+            break;
         case elf:
-            _attr.dexterity = 2;
+            _attr.dexterity += 2;
+            break;
         case gnome:
-            _attr.intelligence = 2;
+            _attr.intelligence += 2;
+            break;
         case half_elf:
-            _attr.charisma = 2;
+            _attr.charisma += 2;
+            break;
         case halfling:
-            _attr.dexterity = 2;
-        case half_orc:
-            _attr.strength = 2;
-            _attr.constitution = 1;
-        case human:
-            _attr.strength = 1;
-            _attr.dexterity = 1;
-            _attr.constitution = 1;
-            _attr.intelligence = 1;
-            _attr.wisdom = 1;
-            _attr.charisma = 1;
-        case tiefling:
-            _attr.charisma = 2;
-            _attr.intelligence = 1;
+            _attr.dexterity += 2;
+            break;
+
         }
     }
-    int ClassAttributes() 
+    void add_class_bonus() 
     {
         switch (_class) 
         {
         case wizard:
-            _attr.intelligence = _attr.intelligence + 2;
-            _attr.wisdom = _attr.wisdom + 1;
+            _attr.intelligence += 2;
+            _attr.wisdom += 1;
+            break;
         case warlock:
-            _attr.charisma = _attr.charisma + 2;
-            _attr.wisdom = _attr.wisdom + 1;
+            _attr.charisma += 2;
+            _attr.wisdom += 1;
+            break;
         case bard:
-            _attr.charisma = _attr.charisma + 2;
-            _attr.dexterity = _attr.dexterity + 1;
+            _attr.charisma += 2;
+            _attr.dexterity += 1;
+            break;
         }
     }
+
+    RACE _race;
+    string _name;
+    attributes _attr;
+    CLASS _class;
+    GENDER _gender;
 };
 
 int GetRandom()
 {
     random_device rd; 
     mt19937 gen(rd());
-    uniform_int_distribution<> distrib(1, 20);
+    uniform_int_distribution<> distrib(4, 18);
     return distrib(gen);
 }
 
@@ -157,10 +156,9 @@ void print_character(character new_character)
     cout << "my intelligence is" << " " << new_character._attr.intelligence << endl;
     cout << "my wisdom is" << " " << new_character._attr.wisdom << endl;
     cout << "my charisma is" << " " << new_character._attr.charisma << endl;
-    
 }
 
-int main(character get_assets)
+int main()
 {
     /*character Silverhand(man, human, "Johnny Silverhand");
     print_character(Silverhand);
@@ -180,11 +178,9 @@ int main(character get_assets)
     cout << "[3]gnome" << " " << "[4]half-elf" << " " << "[5]halfling" << endl;
     cout << "[6]half-orc" << " " << "[7]human" << " " << "[8]tiefling" << endl;
     cin >> Race_input;
-    get_assets.RaceAttributes();
     cout << "What class is your character" << endl;
     cout << "[0]wizard" << " " << "[1]warlock" << " " << "[2]bard" << endl;
     cin >> Class_input;
-    get_assets.ClassAttributes();
     cout << "Name your character" << endl;
     cin >> Name_input;
     cout << "Do you wish to input attributes manually or generate them?" << endl;
@@ -215,7 +211,6 @@ int main(character get_assets)
         attr.charisma = GetRandom();
     }
 
-    
     character player(static_cast<GENDER>(Gender_input), static_cast<RACE>(Race_input), Name_input, attr, static_cast<CLASS>(Class_input));
     print_character(player);
 }
