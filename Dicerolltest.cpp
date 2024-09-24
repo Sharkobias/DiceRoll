@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <map>
 #include <random>
+#include <string>
 using namespace std;
 string user_choice;
 
@@ -29,6 +30,7 @@ public:
         _attr = attr;
         _class = chclass;
         add_race_bonus();
+        add_class_bonus();
     }
     string GetGender() 
     {
@@ -86,8 +88,10 @@ public:
         }
     }
 
-    void add_race_bonus() {
-        switch (_race) {
+    void add_race_bonus() 
+    {
+        switch (_race) 
+        {
         case dragonborn:
             _attr.strength += 2;
             _attr.charisma += 1;
@@ -158,6 +162,14 @@ void print_character(character new_character)
     cout << "my charisma is" << " " << new_character._attr.charisma << endl;
 }
 
+int D20_roll() 
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> distrib(3,18);
+    return distrib(gen);
+}
+
 int main()
 {
     /*character Silverhand(man, human, "Johnny Silverhand");
@@ -170,6 +182,7 @@ int main()
     string Name_input;
     attributes attr;
     string answer;
+    string roll;
     cout << "What is the gender of your character" << endl;
     cout << "[0]woman" << " " << "[1]man" << " " << "[2]intersex" << " " << "[3]other" << endl;
     cin >> Gender_input;
@@ -182,7 +195,8 @@ int main()
     cout << "[0]wizard" << " " << "[1]warlock" << " " << "[2]bard" << endl;
     cin >> Class_input;
     cout << "Name your character" << endl;
-    cin >> Name_input;
+    cin.ignore();
+    getline(cin ,Name_input);
     cout << "Do you wish to input attributes manually or generate them?" << endl;
     cout << "[m]anually" << " " << "[g]enerate" << endl;
     cin >> answer;
